@@ -9,12 +9,19 @@ const db = new sql3.Database('./blogs.db', (err) => {
     }
 });
 
-db.run(`
-    CREATE TABLE IF NOT EXISTS Post (
+let sql = `CREATE TABLE IF NOT EXISTS Post (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         content TEXT NOT NULL
-    )
-`);
+    )`;
+
+db.run(sql, [], (error) => {
+    if (error) {
+        console.log("error creating post table");
+        return;
+    } else {
+        console.log("Table create successfully!")
+    }
+});
 
 module.exports = db;
